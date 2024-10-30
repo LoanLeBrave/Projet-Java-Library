@@ -42,7 +42,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         User current_user;
-
+        int user_input = 0;
 
 
         displayInterface(scanner,library);
