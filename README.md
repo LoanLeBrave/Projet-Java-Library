@@ -1,45 +1,71 @@
 # Projet Java - Library
 
-Dans le cadre de ce projet, il a été demandé de créer une application en Java pour gérer une bibliothèque. Cette application doit répondre aux exigences suivantes :
+Ce projet consiste en une application Java de gestion de bibliothèque permettant aux utilisateurs de se connecter, de visualiser les livres disponibles, d'emprunter et de rendre des livres, ainsi que d'exporter le catalogue. Chaque livre est unique, et un utilisateur ne peut emprunter qu'un nombre limité de livres. Les données sont stockées dans un fichier JSON.
 
-- Gérer les utilisateurs avec une connexion par identifiant.
-- Gérer une collection de livres possédant divers attributs : un identifiant unique, un titre, une description, un auteur, et un prix.
-- Permettre la gestion des emprunts et retours des livres dans la bibliothèque.
-- Le catalogue de livres est stocké sous forme de fichier JSON.
-- L’utilisateur peut effectuer diverses actions, telles que : consulter la liste des livres disponibles, obtenir les détails de chaque livre, emprunter et rendre un livre, ainsi qu’exporter le catalogue actuel des livres disponibles.
+## Fonctionnalités
 
-## Réalisation 
+L'application inclut les fonctionnalités principales suivantes :
 
-Pour répondre à ces exigences, le groupe a commencé par créer trois classes principales : 
-  - `User`
-  - `Library`
-  - `Book`
-  
-Ainsi qu'une classe `Main` pour appeler les différentes fonctions.
+- **Connexion et déconnexion** des utilisateurs.
+- **Gestion du catalogue** : ajout, suppression, et exportation de livres.
+- **Consultation** des livres disponibles, avec des informations détaillées.
+- **Emprunt et retour** de livres.
+- **Exportation** du catalogue en JSON.
 
-### Classe User
+## Structure des Classes
 
-La classe `User` est utilisée pour déclarer toutes les variables et fonctions liées aux utilisateurs. Un utilisateur est défini par son identifiant et son nom, ainsi que par une liste de livres empruntés. La classe spécifie un nombre maximum de livres empruntables par utilisateur, fixé à 3 pour ce projet.
+### Classe `Main`
 
-Elle contient quatre méthodes en plus du constructeur :
-- `getIdentifiant()` et `getNom()` pour obtenir l’identifiant et le nom de l’utilisateur.
-- Deux méthodes pour emprunter et rendre un livre, ainsi que pour consulter les livres empruntés.
+La classe `Main` gère l'interface utilisateur en console et les interactions avec les classes `Library`, `User`, et `Book`. Elle propose un menu à l'utilisateur avec différentes options :
 
-La méthode d’emprunt vérifie deux conditions : l’utilisateur ne doit pas avoir emprunté plus de trois livres, et il ne doit pas avoir emprunté le même livre. Si ces conditions sont remplies, le livre est ajouté à sa liste d’emprunts et retiré du catalogue de la bibliothèque.
+1. Connexion
+2. Déconnexion
+3. Lister les livres disponibles
+4. Voir les détails d'un livre
+5. Louer un livre
+6. Rendre un livre
+7. Exporter le catalogue
+8. Voir ses propres livres loués
 
-### Classe Library 
+Elle définit également les fonctions principales de l'application, comme la création de nouveaux utilisateurs, l'interface de connexion et les appels aux fonctions de gestion de livres.
 
-La classe `Library` sert de lien entre les classes `User` et `Book`. Elle implémente des méthodes pour interroger le catalogue de livres en JSON et pour gérer la connexion des utilisateurs. Elle contient huit méthodes principales :
-- Les deux premières méthodes permettent de se connecter et de se déconnecter. La méthode de connexion vérifie l’identifiant de l’utilisateur et, si celui-ci n’existe pas, `addUser` peut être utilisée pour l’ajouter. La méthode `Logout` déconnecte l’utilisateur s’il est connecté.
-- Une méthode pour charger le catalogue depuis le fichier JSON, avec gestion des exceptions pour assurer l’intégrité des données. Les données chargées sont stockées dans une liste.
-- `displayCatalogue()` affiche les références présentes dans le catalogue.
-- `bookDetail()` fournit des informations détaillées sur le livre demandé.
-- Enfin, une méthode permet de rechercher les livres par leur identifiant et une autre de les supprimer du catalogue.
+### Classe `Library`
 
-### Classe Book
+La classe `Library` représente l'ensemble de la bibliothèque et sert de médiateur entre les livres et les utilisateurs. Elle inclut plusieurs méthodes :
 
-La classe `Book` contient les informations liées aux livres. Elle possède des méthodes pour retourner chaque attribut du livre individuellement. Cette classe utilise la méthode `equals` pour garantir l’unicité des livres dans la bibliothèque, en évitant les doublons.
+- **Gestion des utilisateurs** : `AddUser`, `Login`, `Logout`, `SetCurrentUser`.
+- **Gestion du catalogue** : `AddBookToLibrary`, `AddBookInCatalogue`, `RemoveBookFromCatalogue`, `loadCatalogueFromFile`, `displayCatalogue`, `exportCatalogueToFile`.
+- **Accès aux livres et utilisateurs connectés** : `FindBookByISBN`, `ViewBookDetails`, `ListeLivresDispo`, `GetCurrentUser`.
+- **Validation de l'utilisateur** : `IsUserIdValid`, `IsUserLoggedIn`.
 
-### Classe Main
+### Classe `User`
 
-Dans la classe `Main`, une interface utilisateur console a été mise en place pour permettre d'appeler toutes les méthodes décrites ci-dessus. L’interface se présente sous forme d’une liste de fonctions, chacune associée à un numéro pour interroger et utiliser les différentes méthodes de manière intuitive.
+La classe `User` gère les informations et les actions liées aux utilisateurs, y compris l'emprunt et le retour de livres. Elle contient les éléments suivants :
+
+- **Attributs** : identifiant, nom et liste des livres empruntés.
+- **Méthodes** : 
+  - `getIdentifiant()` et `getNom()` pour récupérer les informations de l’utilisateur.
+  - `RentABook()` pour emprunter un livre (en s’assurant que l’utilisateur n’a pas dépassé le nombre maximum de livres empruntés).
+  - `GiveBackBook()` pour rendre un livre emprunté.
+  - `ListRentedBooks()` pour afficher les livres actuellement empruntés.
+
+### Classe `Book`
+
+La classe `Book` représente un livre dans la bibliothèque et inclut les informations suivantes : ISBN, titre, description, auteur, et prix. Elle possède les méthodes :
+
+- **Accès aux attributs** : `GetISBN()`, `GetTitle()`, `GetDescription()`, `GetAuthor_name()`, `GetPrix()`.
+- **Affichage des détails** : `ShowBookDetails()` pour afficher les informations détaillées.
+- **Comparaison d'objets** : `equals()` et `hashCode()` pour vérifier l'unicité d'un livre.
+
+## Utilisation
+
+1. **Connexion** : L'utilisateur est invité à se connecter avec un identifiant existant ou à créer un compte. En cas de création, il doit fournir un identifiant et un nom.
+2. **Navigation** : Après connexion, l'utilisateur peut naviguer parmi les options pour visualiser, louer, ou rendre des livres.
+3. **Gestion des livres** :
+   - **Visualisation** : L'utilisateur peut consulter le catalogue disponible ou les détails d'un livre spécifique en entrant son ISBN.
+   - **Emprunt et Retour** : L'utilisateur peut emprunter un livre s'il est connecté et n'a pas atteint la limite d'emprunts. Le livre est alors retiré du catalogue. Pour le retour, l'utilisateur entre l'ISBN du livre à restituer, qui est alors ajouté de nouveau au catalogue.
+4. **Exportation du catalogue** : L'utilisateur peut exporter la liste des livres disponibles dans un fichier JSON.
+
+## Exécution
+
+Pour lancer le projet, exécutez `Main`. Un menu interactif guidera l'utilisateur tout au long de l'utilisation de l'application.
