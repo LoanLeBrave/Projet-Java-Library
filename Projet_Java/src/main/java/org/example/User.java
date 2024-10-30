@@ -1,6 +1,7 @@
 package org.example;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.ArrayList;
+import org.example.Library;
 
 public class User {
 
@@ -24,35 +25,26 @@ public class User {
         return this.name;
     }
 
-    public void RentABook(Book new_book) {
+    public void RentABook(Book book, Library library) {
         if (books.size() >= maxBooksRent) {
             System.out.println("Vous avez déjà loué 3 livres. Vous ne pouvez pas en louer plus.");
             return;
         }
         for (Book rentedBook : books) {
-            if (rentedBook.GetISBN() == new_book.GetISBN()) {
+            if (rentedBook.GetISBN() == book.GetISBN()) {
                 System.out.println("Vous avez déjà loué ce livre.");
                 return;
             }
         }
-
-        if (Library.FindBookByISBN(book.getISBN()) != null) {
-            // Louer le livre
-            books.add(new_book);
-            Library.RemoveBookFromCatalogue(new_book.GetISBN());
-            System.out.println("Le livre " + books.GetTitle() + " a été loué avec succès.");
+        if (library.FindBookByISBN(book.GetISBN()) != null) {
+            books.add(book);
+            library.removeBookFromCatalogue(book.GetISBN());
+            System.out.println("Le livre " + book.GetTitle() + " a été loué avec succès.");
         } else {
-            System.out.println("Le livre avec l'ISBN " + books.GetISBN() + " n'existe pas dans le catalogue.");
+            System.out.println("Le livre avec l'ISBN " + book.GetISBN() + " n'existe pas dans le catalogue.");
         }
     }
 
-    public void GiveBackBook(Book book) {
-        if (books.remove(book)) {
-            System.out.println("Le livre " + book.GetTitle() + " a été rendu.");
-        } else {
-            System.out.println("Ce livre n'a pas été loué par cet utilisateur.");
-        }
-    }
 
 
     public String ShowRentedBook(){

@@ -31,7 +31,6 @@ public class Book {
     }
 
     public String GetTitle() {
-
         return title;
     }
 

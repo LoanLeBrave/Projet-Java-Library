@@ -14,7 +14,7 @@ import java.util.List;
 public class Library {
     private String Nom;
     private Set<Book> Book;
-    private List<Book> catalogue;
+    private static List<Book> catalogue;
     private static Set<User> User;
     private static User currentUser = null;
 
@@ -87,7 +87,7 @@ public class Library {
         }
     };
 
-    public Book FindBookByISBN(int isbn) {
+    public static Book FindBookByISBN(int isbn) {
         for (Book book : catalogue) {
             if (book.GetISBN() == isbn) {
                 return book;
@@ -95,6 +95,16 @@ public class Library {
         }
         System.out.println("Aucun livre trouvé avec l'ISBN " + isbn);
         return null;
+    }
+
+    public static void removeBookFromCatalogue(int isbn) {
+        Book book = FindBookByISBN(isbn);
+        if (book != null) {
+            catalogue.remove(book);
+            System.out.println("Le livre " + book.GetTitle() + " a été retiré du catalogue.");
+        } else {
+            System.out.println("Aucun livre avec l'ISBN " + isbn + " trouvé dans le catalogue.");
+        }
     }
 
     public static boolean IsUserLoggedIn() {
