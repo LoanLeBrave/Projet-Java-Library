@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static int displayInterface(Scanner scanner, Library library) {
+    public static int displayInterface_and_return_user_input(Scanner scanner, Library library) {
         int user_input;
 
         do {
@@ -42,10 +42,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         User current_user;
-        int user_input = 0;
 
 
-        displayInterface(scanner,library);
+        int user_input = displayInterface_and_return_user_input(scanner, library);
+
 
         switch (user_input) {
             case 1:
