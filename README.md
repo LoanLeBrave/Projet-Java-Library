@@ -28,3 +28,7 @@ Enfin il y a une méthode qui permet de chercher les livres par leur identifiant
 # Book
 La méthode book est assez simple car c'est elle qui réference toutes les infomrmations liés aux livres. Elle possèdes des méthode pour retourner individuellement chaque information lié à un livre. Cette classe fait appelle à l'héritage equals pour vérifier qu'aucun livre n'est le même. Les livres doivent être unique dans notre bibliothèque c'est donc pour cela que nous faisont appelle à cette méthode equals. 
 
+# Main
+Dans le main une inteface utilisateur sur la console à été mis en place pour permettre d'appeler toutes ces méthodes qui on été cité auparavant. 
+L'interface se présente comme une liste de fonction à laquelle sont associé des numéros qui permette d'intérogé et d'utilisé les différentes méthodes.
+
