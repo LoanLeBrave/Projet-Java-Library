@@ -1,34 +1,45 @@
-# Projet-Java-Library
-Lors de ce projet il a été demandé de créer un application en java pour gérer une bibliothèque. Cette application devrat répôndre à différentes exigences tel que : 
-- Avoir une gestion des utilisateurs via une connexion par identifiant
-- Gérer une collection de livre qui possède différents attributs : Un identifiant unique, un titre, une description, un auteur et un prix
--  Cette application sera aussi en mesure de gérer l'emprunt et la rétribution des livres à la bibliotèque.
--  Le catalogue de livre se fera sous forme de fichier JSON
--  L'utilisateur sera en mesure de faire différentes actions tels que : Connaitre la listes des livres disponible, avoir le détails de chaque livre, louer et rendre un livre et il pourra exporter le catalogue des livres disponible actuellement.
+# Projet Java - Library
 
-  # Réalisation 
-  Pour accomplir toutes ces exigences, le groupe à commencer par créer 3 classes : 
-  - User
-  - Library
-  - Book
-et le main pour appeler les fonctions.
-# User 
-La classe User est utilisé pour déclarer toutes les variables et fonctions liés aux utlisateurs.
-Un utilisateur est définin seulement par son identifiant, un nom lui a été ajouté ainsi qu'une liste de livre qu'il a emprunté.
-Dans les variables le nombre maximum de livre empruntable par un utilisateur est définie, dans le cadre de ce projet c'est 3.
-Dans cette classe utilisateur il y a donc 4 méthode en plus du constructeur. Une méthode GetIdentifiant et GetNom.
-Les 2 autres méthode sont c'elle pour emprunter un livre et de le rendre ainsi que c'elle de voir quel livre un utilisateur à emprunter.
-La méthode d'emprunter un livre vérifie 2 condition, la première si l'utilisateur n'a pas emprunter + de 3 livres, la deuxième condition est s'il n'a pas emprunter le même livre. Si ces 2 conditions ont été passé avec succès le livre qu'il veut emprunter sera ajouter dans sa liste et retirer du catalogue de la bibliothèque.
+Dans le cadre de ce projet, il a été demandé de créer une application en Java pour gérer une bibliothèque. Cette application doit répondre aux exigences suivantes :
 
-# Library 
-La classe Library est quant à elle en charge de faire le lien entre la classe utilisateur (User) et la classe livre (Book), dans cette classe sont implémanté des méthode qui vont intérogé le catalogue de livre en JSON, permettre à l'utilisateur de se connecter. Dans cette classe il y a 8 méthodes, les 2 premières sont c'elle pour se connecter et se déconnecter. La méthode se connecter vérifie simplement que l'utilisateur utilise en vérifiant sont identifiant. Si l'utilisateur n'existe pas, la méthode addUser peut être utilisé. La méthode Logout vérifie si un utilisateur était connecté, si c'était le cas il le deconnecte. 
-Il y a ensuite la méthode qui charge le catalogue depuis son fichier. Pour cela il va faire appelle à une exeption pour être sûr que les données sont bien acquise. Ces données qui ont été aquise dans le JSON vont être mis dans une liste. La méthode display catalogue montrera quels sont les références présente dans le catalogue. BookDetail sera quant à elle beaucoup plus précise, en indiquants tous les éléments en référence au livre demandée. 
-Enfin il y a une méthode qui permet de chercher les livres par leur identifiant et une autre qui permet de supprimer les livres du catlogue. 
+- Gérer les utilisateurs avec une connexion par identifiant.
+- Gérer une collection de livres possédant divers attributs : un identifiant unique, un titre, une description, un auteur, et un prix.
+- Permettre la gestion des emprunts et retours des livres dans la bibliothèque.
+- Le catalogue de livres est stocké sous forme de fichier JSON.
+- L’utilisateur peut effectuer diverses actions, telles que : consulter la liste des livres disponibles, obtenir les détails de chaque livre, emprunter et rendre un livre, ainsi qu’exporter le catalogue actuel des livres disponibles.
 
-# Book
-La méthode book est assez simple car c'est elle qui réference toutes les infomrmations liés aux livres. Elle possèdes des méthode pour retourner individuellement chaque information lié à un livre. Cette classe fait appelle à l'héritage equals pour vérifier qu'aucun livre n'est le même. Les livres doivent être unique dans notre bibliothèque c'est donc pour cela que nous faisont appelle à cette méthode equals. 
+## Réalisation 
 
-# Main
-Dans le main une inteface utilisateur sur la console à été mis en place pour permettre d'appeler toutes ces méthodes qui on été cité auparavant. 
-L'interface se présente comme une liste de fonction à laquelle sont associé des numéros qui permette d'intérogé et d'utilisé les différentes méthodes.
+Pour répondre à ces exigences, le groupe a commencé par créer trois classes principales : 
+  - `User`
+  - `Library`
+  - `Book`
+  
+Ainsi qu'une classe `Main` pour appeler les différentes fonctions.
 
+### Classe User
+
+La classe `User` est utilisée pour déclarer toutes les variables et fonctions liées aux utilisateurs. Un utilisateur est défini par son identifiant et son nom, ainsi que par une liste de livres empruntés. La classe spécifie un nombre maximum de livres empruntables par utilisateur, fixé à 3 pour ce projet.
+
+Elle contient quatre méthodes en plus du constructeur :
+- `getIdentifiant()` et `getNom()` pour obtenir l’identifiant et le nom de l’utilisateur.
+- Deux méthodes pour emprunter et rendre un livre, ainsi que pour consulter les livres empruntés.
+
+La méthode d’emprunt vérifie deux conditions : l’utilisateur ne doit pas avoir emprunté plus de trois livres, et il ne doit pas avoir emprunté le même livre. Si ces conditions sont remplies, le livre est ajouté à sa liste d’emprunts et retiré du catalogue de la bibliothèque.
+
+### Classe Library 
+
+La classe `Library` sert de lien entre les classes `User` et `Book`. Elle implémente des méthodes pour interroger le catalogue de livres en JSON et pour gérer la connexion des utilisateurs. Elle contient huit méthodes principales :
+- Les deux premières méthodes permettent de se connecter et de se déconnecter. La méthode de connexion vérifie l’identifiant de l’utilisateur et, si celui-ci n’existe pas, `addUser` peut être utilisée pour l’ajouter. La méthode `Logout` déconnecte l’utilisateur s’il est connecté.
+- Une méthode pour charger le catalogue depuis le fichier JSON, avec gestion des exceptions pour assurer l’intégrité des données. Les données chargées sont stockées dans une liste.
+- `displayCatalogue()` affiche les références présentes dans le catalogue.
+- `bookDetail()` fournit des informations détaillées sur le livre demandé.
+- Enfin, une méthode permet de rechercher les livres par leur identifiant et une autre de les supprimer du catalogue.
+
+### Classe Book
+
+La classe `Book` contient les informations liées aux livres. Elle possède des méthodes pour retourner chaque attribut du livre individuellement. Cette classe utilise la méthode `equals` pour garantir l’unicité des livres dans la bibliothèque, en évitant les doublons.
+
+### Classe Main
+
+Dans la classe `Main`, une interface utilisateur console a été mise en place pour permettre d'appeler toutes les méthodes décrites ci-dessus. L’interface se présente sous forme d’une liste de fonctions, chacune associée à un numéro pour interroger et utiliser les différentes méthodes de manière intuitive.
